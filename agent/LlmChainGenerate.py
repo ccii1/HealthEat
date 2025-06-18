@@ -3,7 +3,6 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from typing import Any
 
-from utils.PrintUtils import *
 
 class LlmChainGenerate:
     def __init__(
@@ -38,7 +37,6 @@ class LlmChainGenerate:
             # 流式处理响应
             for i, s in enumerate(chain.stream({})):
                 # 颜色打印（用于区分不同类型的输出）
-                color_print(s, THOUGHT_COLOR, end="")
                 response += s
         else:
             # 非流式处理（直接获取完整响应）
