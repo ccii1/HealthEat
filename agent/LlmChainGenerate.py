@@ -21,14 +21,6 @@ class LlmChainGenerate:
         self.__init_prompt_templates()  # 初始化提示模板
 
     def __init_prompt_templates(self):
-        """
-        初始化提示模板
-        
-        功能：
-        1. 读取提示文件内容
-        2. 创建ChatPromptTemplate实例
-        3. 绑定额外参数（如用户名称、数据库模式等）
-        """
         with open(self.prompt_file, 'r', encoding='utf-8') as f:
             # 从文件内容创建人类消息模板
             human_prompt = HumanMessagePromptTemplate.from_template(f.read())
@@ -38,17 +30,6 @@ class LlmChainGenerate:
             self.prompt = self.prompt.partial(**self.params)
 
     def run(self):
-        """
-        运行语言模型链
-        
-        返回：
-            str: 模型生成的响应内容
-            
-        功能：
-        1. 根据配置选择流式或非流式处理
-        2. 记录提示和响应到日志（如果启用）
-        3. 处理颜色输出（用于调试）
-        """
         if self.useStrOutputParser:
             # 使用字符串输出解析器（流式处理）
             response = ""
