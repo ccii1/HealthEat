@@ -195,6 +195,19 @@ class WorkFlow:
     @staticmethod
     @tool
     def db_query_tool(query: str) -> str:
+        """
+        执行SQL查询并返回结果。
+        
+        该工具接收SQL查询语句，连接到数据库执行查询，并返回查询结果或执行状态。
+        对于SELECT查询，返回查询结果；对于其他类型的查询（如INSERT、UPDATE、DELETE），
+        返回执行状态和受影响的行数。
+        
+        参数:
+            query: 要执行的SQL查询语句
+            
+        返回:
+            查询结果或执行状态信息
+        """
         try:
             sql_type = query.strip().split()[0].upper()
             connection = WorkFlow.sqLite.conn

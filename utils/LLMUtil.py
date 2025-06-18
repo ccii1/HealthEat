@@ -74,8 +74,8 @@ def get_new_llm():
         model_name="qwen-max",  # 使用通义千问模型
         temperature=0,  # 温度参数设为0，输出稳定
         streaming=True,  # 启用流式输出（逐字符返回结果）
-        openai_api_key="sk-7a62516c2d0647aab12b66f9470f0812",  # DashScope兼容模式API密钥
-        openai_api_base="https://dashscope.aliyuncs.com/compatible-mode/v1"  # DashScope兼容模式端点
+        openai_api_key="",  # 替换为实际的API密钥
+        openai_api_base=""  # 替换为实际的API端点
     )
 
 
