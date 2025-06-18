@@ -1,0 +1,82 @@
+@startuml HealthEat状态图
+
+[*] --> START
+
+state START {
+}
+
+state "login" as login {
+  识别用户名
+  创建新用户
+}
+
+state "judge_query" as judge {
+  分析用户需求类型
+}
+
+state "first_tool_call" as first_tool {
+  准备调用数据库工具
+}
+
+state "list_tables_tool" as list_tables {
+  获取数据库表列表
+}
+
+state "model_get_schema" as get_schema_model {
+  准备获取表结构
+}
+
+state "get_schema_tool" as get_schema {
+  获取表结构信息
+}
+
+state "query_gen" as query_gen {
+  生成SQL查询语句
+}
+
+state "execute_query" as execute {
+  执行SQL查询
+}
+
+state "conclude" as conclude {
+  总结查询结果
+  生成最终回答
+}
+
+state END {
+}
+
+START --> login : 用户未登录
+START --> judge : 用户已登录
+
+login --> list_tables : 用户登录成功
+login --> END : 登录失败
+
+judge --> first_tool : 只需数据库查询
+judge --> "rag_retrieval" : 需要RAG检索
+judge --> judge : 其他查询类型
+
+first_tool --> list_tables
+list_tables --> get_schema_model
+get_schema_model --> get_schema
+get_schema --> query_gen
+query_gen --> execute
+execute --> conclude
+conclude --> END
+
+note right of judge
+  根据用户输入
+  选择处理路径
+end note
+
+note right of query_gen
+  基于表结构和用户需求
+  生成SQL查询语句
+end note
+
+note right of conclude
+  分析查询结果
+  提供个性化建议
+end note
+
+@enduml 
